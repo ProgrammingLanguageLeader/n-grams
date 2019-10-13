@@ -10,6 +10,7 @@ class Arguments:
         self.verbosity: bool = args.verbose
         self.output_dir: str = args.output
         self.pretty_printing: bool = args.pretty
+        self.alphabet: str = args.alphabet.lower()
 
     @staticmethod
     def create_argument_parser() -> argparse.ArgumentParser:
@@ -17,7 +18,7 @@ class Arguments:
         parser.add_argument(
             'source',
             type=str,
-            help='Path to the file with source text'
+            help='Path to the file with a source text'
         )
         parser.add_argument(
             '-n', '--n_max',
@@ -42,5 +43,10 @@ class Arguments:
             action='store_true',
             help='Enables pretty printing of results',
             default=False
+        )
+        parser.add_argument(
+            '-a', '--alphabet',
+            help='String with an alphabet of the source text',
+            default='абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
         )
         return parser

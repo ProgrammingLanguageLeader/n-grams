@@ -36,12 +36,12 @@ def load_file(path: str, encoding: str = 'utf-8') -> str:
     return file_content
 
 
-def filter_text(text: str) -> str:
+def filter_text(text: str, alphabet: str) -> str:
     filtered_text = ''
     for line in text.splitlines():
         for char in line:
             lower_char = char.lower()
-            if lower_char in '0123456789абвгдеёжзийклмнопрстуфхцчшщъыьэюя ':
+            if lower_char in '0123456789 ' or lower_char in alphabet:
                 filtered_text += lower_char
             elif lower_char in string.punctuation:
                 filtered_text += ' '
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     config_logger(args.verbosity)
     logger = logging.getLogger(__name__)
     text = load_file(args.source_file)
-    filtered_text = filter_text(text)
+    filtered_text = filter_text(text, args.alphabet)
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
     for chars_number in range(1, args.n_max + 1):
